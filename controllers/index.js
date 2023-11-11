@@ -2,5 +2,5 @@
 
 module.exports = {
   classroom: require('./classroom'),
-  purchaseOrder: require('./purchaseOrderController')
+  userController: require('./userController')
 };

@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-  purchaseOrderService: require('./purchaseOrderService')
+  userService: require('./userService')
 }
