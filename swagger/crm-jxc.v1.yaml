@@ -1,0 +1,2374 @@
+openapi: 3.0.0
+info:
+  title: WZK CRM APIs
+  version: '1.0'
+  description: WZK CRM APIs. This documentation includes all APIs of purchase, sales, stock and vendor management APIs.
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  '/companies/{company_id}/purchase-orders':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+    get:
+      summary: List Purchased Orders
+      tags:
+        - Purchase Order Management
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PurchaseOrder'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-companies-company_id-purchase-orders
+      description: List purchase orders
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: '0'
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: '100'
+    post:
+      summary: Create a Purchased Order
+      operationId: post-companies-company_id-purchase-orders
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrder'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: 创建采购订单
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 销售订单主题
+                vendorId:
+                  type: string
+                consumptionTax:
+                  type: number
+                transportion:
+                  type: string
+                commission:
+                  type: number
+                status:
+                  type: string
+                createdBy:
+                  type: string
+                startDate:
+                  type: string
+                endDate:
+                  type: string
+                ownerId:
+                  type: string
+                createdAddress:
+                  $ref: '#/components/schemas/Address'
+                sendAddress:
+                  $ref: '#/components/schemas/Address'
+              required:
+                - title
+                - vendorId
+                - consumptionTax
+                - transportion
+                - commission
+                - status
+                - createdBy
+                - startDate
+                - endDate
+                - ownerId
+      tags:
+        - Purchase Order Management
+  '/companies/{company_id}/purchase-orders/{order_id}':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: order_id
+        in: path
+        required: true
+    delete:
+      summary: Delete a Purchased Order
+      operationId: delete-companies-company_id-purchase-orders-order_id
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: Delete a purchase order
+      tags:
+        - Purchase Order Management
+    patch:
+      summary: Edit a Purchased Order
+      operationId: patch-companies-company_id-purchase-orders-order_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrder'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: 修改采购订单
+      tags:
+        - Purchase Order Management
+  '/companies/{company_id}/purchase-orders/{order_id}/products':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: order_id
+        in: path
+        required: true
+    get:
+      summary: List Products of a Purchased Order
+      tags:
+        - Purchase Order Management
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OrderProduct'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-companies-company_id-purchase-orders-order_id-products
+      description: 列出一个采购订单下所采购的产品
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: '0'
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: '50'
+    post:
+      summary: Create a Product for a Purchased Order
+      operationId: post-companies-company_id-purchase-orders-order_id-products
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderProduct'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: 为采购订单创建采购产品
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: string
+                unitPrice:
+                  type: number
+                quantity:
+                  type: integer
+                discount:
+                  type: number
+                tax:
+                  type: number
+                currencyType:
+                  type: string
+      tags:
+        - Purchase Order Management
+  '/companies/{company_id}/purchase-orders/{order_id}/products/{product_id}':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: order_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: product_id
+        in: path
+        required: true
+    delete:
+      summary: Delete a Purchased Product Under a Purchased Order
+      operationId: delete-companies-company_id-purchase-orders-order_id-products-product_id
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: 删除一个采购订单下的产品
+      tags:
+        - Purchase Order Management
+    patch:
+      summary: Update a Purchased Product Under a Purchased Order
+      operationId: patch-companies-company_id-purchase-orders-order_id-products-product_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderProduct'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: 编辑采购产品
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: string
+                unitPrice:
+                  type: number
+                quantity:
+                  type: integer
+                discount:
+                  type: number
+                tax:
+                  type: number
+                currencyType:
+                  type: string
+      tags:
+        - Purchase Order Management
+  '/companies/{company_id}/sales-orders':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+    get:
+      summary: List Sales Orders
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SalesOrder'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-companies-company_id-sales-orders
+      description: List salse orders
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: '0'
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: '100'
+      tags:
+        - Sales Order Management
+    post:
+      summary: Create a Sales Order
+      operationId: post-companies-company_id-sales-orders
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrder'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: 创建采购订单
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                title:
+                  type: string
+                  description: 销售订单主题
+                businessOpportunityId:
+                  type: string
+                consumptionTax:
+                  type: number
+                transportion:
+                  type: string
+                commission:
+                  type: number
+                tax:
+                  type: number
+                contactorId:
+                  type: string
+                status:
+                  type: string
+                createdBy:
+                  type: string
+                price:
+                  type: number
+                endDate:
+                  type: string
+                ownerId:
+                  type: object
+                createdAddress:
+                  $ref: '#/components/schemas/Address'
+                sendAddress:
+                  $ref: '#/components/schemas/Address'
+                clause:
+                  type: string
+                description:
+                  type: string
+              required:
+                - title
+                - businessOpportunityId
+                - consumptionTax
+                - transportion
+                - commission
+                - status
+                - createdBy
+                - price
+                - endDate
+                - ownerId
+      tags:
+        - Sales Order Management
+  '/companies/{company_id}/sales-orders/{order_id}':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: order_id
+        in: path
+        required: true
+    delete:
+      summary: Delete a Sales Order
+      operationId: delete-companies-company_id-sales-orders-order_id
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: Delete a purchase order
+      tags:
+        - Sales Order Management
+    patch:
+      summary: Edit a Sales Order
+      operationId: patch-companies-company_id-sales-orders-order_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesOrder'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: 修改采购订单
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                title:
+                  type: string
+                  description: 销售订单主题
+                businessOpportunityId:
+                  type: string
+                consumptionTax:
+                  type: number
+                transportion:
+                  type: string
+                commission:
+                  type: number
+                tax:
+                  type: number
+                contactorId:
+                  type: string
+                status:
+                  type: string
+                price:
+                  type: number
+                endDate:
+                  type: string
+                ownerId:
+                  type: object
+                createdAddress:
+                  $ref: '#/components/schemas/Address'
+                sendAddress:
+                  $ref: '#/components/schemas/Address'
+                clause:
+                  type: string
+                description:
+                  type: string
+              required:
+                - title
+                - businessOpportunityId
+                - consumptionTax
+                - transportion
+                - commission
+                - status
+                - price
+                - endDate
+                - ownerId
+      tags:
+        - Sales Order Management
+  '/companies/{company_id}/sales-orders/{order_id}/products':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: order_id
+        in: path
+        required: true
+    get:
+      summary: List Products of a Sales Order
+      tags:
+        - Sales Order Management
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OrderProduct'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-companies-company_id-salse-orders-order_id-products
+      description: 列出一个销售订单下所销售的产品
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: '0'
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: '50'
+    post:
+      summary: Create a Product for a Sales Order
+      operationId: post-companies-company_id-sales-orders-order_id-products
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderProduct'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: 为销售订单创建采购产品
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: string
+                unitPrice:
+                  type: number
+                quantity:
+                  type: integer
+                discount:
+                  type: number
+                tax:
+                  type: number
+                currencyType:
+                  type: string
+      tags:
+        - Sales Order Management
+  '/companies/{company_id}/sales-orders/{order_id}/products/{product_id}':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: order_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: product_id
+        in: path
+        required: true
+    delete:
+      summary: Delete a Sales Product Under a Purchased Order
+      operationId: delete-companies-company_id-Sales-orders-order_id-products-product_id
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: 删除一个采购订单下的产品
+      tags:
+        - Sales Order Management
+    patch:
+      summary: Update a Sales Product Under a Sales Order
+      operationId: patch-companies-company_id-sales-orders-order_id-products-product_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderProduct'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: 编辑销售产品
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: string
+                unitPrice:
+                  type: number
+                quantity:
+                  type: integer
+                discount:
+                  type: number
+                tax:
+                  type: number
+                currencyType:
+                  type: string
+      tags:
+        - Sales Order Management
+  '/companies/{company_id}/stocks':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+    get:
+      summary: List Stock Items
+      tags:
+        - Stock Management
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Stock'
+                required:
+                  - results
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-companies-company_id-stocks
+      description: List stock items
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: '0'
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: '100'
+    post:
+      summary: Create a Stock Item
+      operationId: post-companies-company_id-stocks
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stock'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: Create a stock item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                code:
+                  type: string
+                batch:
+                  type: integer
+                inDate:
+                  type: string
+                location:
+                  $ref: '#/components/schemas/Address'
+                endDate:
+                  type: string
+                quantity:
+                  type: integer
+                totalQuantity:
+                  type: integer
+                safeQuantity:
+                  type: integer
+                note:
+                  type: string
+      tags:
+        - Stock Management
+  '/companies/{company_id}/stocks/{stock-id}':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: stock-id
+        in: path
+        required: true
+    delete:
+      summary: Delete a Stock Item
+      operationId: delete-companies-company_id-stocks-stock-id
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: Delete a stock item
+      tags:
+        - Stock Management
+    patch:
+      summary: Edit a Stock Item
+      operationId: patch-companies-company_id-stocks-stock-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stock'
+      description: Edit a stock item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                code:
+                  type: string
+                batch:
+                  type: integer
+                inDate:
+                  type: string
+                location:
+                  $ref: '#/components/schemas/Address'
+                endDate:
+                  type: string
+                quantity:
+                  type: integer
+                totalQuantity:
+                  type: integer
+                safeQuantity:
+                  type: integer
+                note:
+                  type: string
+      tags:
+        - Stock Management
+  '/companies/{company_id}/vendors':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+    get:
+      summary: List Vendors
+      tags:
+        - Vendor Management
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Vendor'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-companies-company_id-vendors
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: '0'
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: '100'
+      description: List vendors
+    post:
+      summary: Create a Vendor
+      operationId: post-companies-company_id-vendors
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: Create a vendor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                officalSite:
+                  type: string
+                location:
+                  $ref: '#/components/schemas/Address'
+                tel:
+                  type: string
+                industry:
+                  type: string
+                email:
+                  type: string
+                companyOwnerType:
+                  type: string
+                ownerId:
+                  type: string
+                description:
+                  type: string
+        description: ''
+      tags:
+        - Vendor Management
+  '/companies/{company_id}/vendors/{vendor-id}':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: vendor-id
+        in: path
+        required: true
+    delete:
+      summary: Delete a Vendor Item
+      operationId: delete-companies-company_id-vendors-vendor-id
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: Delete a vendor
+      tags:
+        - Vendor Management
+    patch:
+      summary: Edit a Vendor Item
+      operationId: patch-companies-company_id-vendors-vendor-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vendor'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                officalSite:
+                  type: string
+                location:
+                  $ref: '#/components/schemas/Address'
+                tel:
+                  type: string
+                industry:
+                  type: string
+                email:
+                  type: string
+                companyOwnerType:
+                  type: string
+                ownerId:
+                  type: string
+                description:
+                  type: string
+        description: ''
+      tags:
+        - Vendor Management
+      description: Update a vendor
+  '/companies/{company_id}/stocks/{stock-id}/in-stocks':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: stock-id
+        in: path
+        required: true
+    get:
+      summary: List In Stock Items
+      tags:
+        - Stock Management
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StockIn'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-companies-company_id-stocks-stock-id-in-stocks
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: '0'
+        - schema:
+            type: integer
+          in: query
+          name: limit
+          description: '50'
+      description: List in stock items
+    post:
+      summary: Create a In-Stock Item
+      operationId: post-companies-company_id-stocks-stock-id-in-stocks
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StockIn'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: string
+                type:
+                  type: string
+                stockId:
+                  type: string
+                vendorId:
+                  type: string
+                inBy:
+                  type: string
+                inDate:
+                  type: string
+                purchaseOrderId:
+                  type: string
+                deliveryOderId:
+                  type: string
+                description:
+                  type: string
+      tags:
+        - Stock Management
+      description: Create a in-stock item
+  '/companies/{company_id}/stocks/{stock-id}/out-stocks':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: stock-id
+        in: path
+        required: true
+    get:
+      summary: List Out Stock Items
+      tags:
+        - Stock Management
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StockOut'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-companies-company_id-stocks-stock-id-out-stocks
+      description: list out stock items
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: offset
+          description: '0'
+        - schema:
+            type: string
+          in: query
+          name: limit
+          description: '50'
+    post:
+      summary: Create a Out-Stock Item
+      operationId: post-companies-company_id-stocks-stock-id-out-stocks
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StockOut'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: Create a out-stock item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                type:
+                  type: string
+                stock:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    title:
+                      type: string
+                    batch:
+                      type: string
+                outBy:
+                  type: string
+                outDate:
+                  type: string
+                salesOrder:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    title:
+                      type: string
+                    code:
+                      type: string
+                outOder:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    title:
+                      type: string
+                    code:
+                      type: string
+                description:
+                  type: string
+      tags:
+        - Stock Management
+  '/companies/{company_id}/stocks/{stock-id}/in-stocks/{in_stock_id}':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: stock-id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: in_stock_id
+        in: path
+        required: true
+    delete:
+      summary: Delete a In Stock Item
+      operationId: delete-companies-company_id-stocks-stock-id-in-stocks-in_stack_id
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: Delete a in-stock item
+      tags:
+        - Stock Management
+  '/companies/{company_id}/stocks/{stock-id}/out-stocks/{out_stock_id}':
+    parameters:
+      - schema:
+          type: string
+        name: company_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: stock-id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: out_stock_id
+        in: path
+        required: true
+    delete:
+      summary: Delete a Out Stock Item
+      operationId: delete-companies-company_id-stocks-stock-id-out-stocks-out_stock_id
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: Delete a out stock item
+      tags:
+        - Stock Management
+components:
+  schemas:
+    PurchaseOrder:
+      title: PurchaseOrder
+      type: object
+      properties:
+        id:
+          type: string
+          description: 销售订单id，格式是uuid
+        orderCode:
+          type: string
+          description: 销售订单编号
+          minLength: 0
+          maxLength: 255
+        title:
+          type: string
+          description: 销售订单主题
+        vendor:
+          type: object
+          required:
+            - id
+            - name
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        consumptionTax:
+          type: number
+        transportion:
+          type: string
+        commission:
+          type: number
+        status:
+          type: string
+          description: 状态
+        createdAddress:
+          $ref: '#/components/schemas/Address'
+        sendAddress:
+          $ref: '#/components/schemas/Address'
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        deleted:
+          type: boolean
+        deletedBy:
+          type: string
+        deletedAt:
+          type: string
+          format: date-time
+        startDate:
+          type: string
+          description: 订单开始日期
+          format: date
+        endDate:
+          type: string
+          description: 订单结束日期
+          format: date
+        owner:
+          type: object
+          required:
+            - id
+            - name
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        clause:
+          type: string
+          description: 条款
+        description:
+          type: string
+          description: 描述
+      required:
+        - id
+        - orderCode
+        - title
+        - vendor
+        - consumptionTax
+        - transportion
+        - commission
+        - status
+        - createdAddress
+        - sendAddress
+        - createdBy
+        - createdAt
+        - updatedBy
+        - updatedAt
+        - deleted
+        - deletedBy
+        - deletedAt
+        - startDate
+        - endDate
+        - owner
+        - clause
+        - description
+    Address:
+      title: Address
+      type: object
+      properties:
+        country:
+          type: string
+        province:
+          type: string
+        city:
+          type: string
+        address:
+          type: string
+      required:
+        - country
+        - province
+        - city
+        - address
+    OrderProduct:
+      title: PurchaseProduct
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        quantity:
+          type: integer
+        unitPrice:
+          type: number
+        price:
+          type: number
+        discount:
+          type: number
+        tax:
+          type: number
+        currencyType:
+          type: string
+        totalPrice:
+          type: number
+        orderId:
+          type: string
+        orderType:
+          type: string
+          description: purchase or sales
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+        deleted:
+          type: boolean
+        deletedBy:
+          type: string
+        deletedAt:
+          type: string
+      required:
+        - id
+        - name
+        - quantity
+        - unitPrice
+        - price
+        - discount
+        - tax
+        - currencyType
+        - totalPrice
+        - orderId
+        - orderType
+        - createdBy
+        - createdAt
+        - updatedBy
+        - updatedAt
+        - deleted
+        - deletedBy
+        - deletedAt
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: string
+        detail:
+          type: string
+      required:
+        - code
+        - detail
+    SalesOrder:
+      title: SalesOder
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        code:
+          type: string
+        businessOpportunity:
+          type: object
+          required:
+            - id
+            - name
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        price:
+          type: string
+        customer:
+          type: object
+          required:
+            - id
+            - name
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        contactor:
+          type: object
+          required:
+            - id
+            - name
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        status:
+          type: string
+        createdAddress:
+          $ref: '#/components/schemas/Address'
+        sendAddress:
+          $ref: '#/components/schemas/Address'
+        endDate:
+          type: string
+        owner:
+          type: object
+          required:
+            - id
+            - name
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        transportion:
+          type: string
+        clause:
+          type: string
+          description: 条款
+        description:
+          type: string
+          description: 描述
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        deleted:
+          type: boolean
+        deletedBy:
+          type: string
+        deletedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - code
+        - businessOpportunity
+        - price
+        - customer
+        - contactor
+        - status
+        - createdAddress
+        - sendAddress
+        - endDate
+        - owner
+        - transportion
+        - clause
+        - description
+        - createdBy
+        - createdAt
+        - updatedBy
+        - updatedAt
+        - deleted
+        - deletedBy
+        - deletedAt
+    Stock:
+      title: stock
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        code:
+          type: string
+        batch:
+          type: integer
+        inDate:
+          type: string
+        location:
+          $ref: '#/components/schemas/Address'
+        endDate:
+          type: string
+        quantity:
+          type: integer
+        totalQuantity:
+          type: integer
+        safeQuantity:
+          type: integer
+        note:
+          type: string
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        deleted:
+          type: boolean
+        deletedBy:
+          type: string
+        deletedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - code
+        - batch
+        - inDate
+        - location
+        - endDate
+        - quantity
+        - totalQuantity
+        - safeQuantity
+        - note
+        - createdBy
+        - createdAt
+        - updatedBy
+        - updatedAt
+        - deleted
+        - deletedBy
+        - deletedAt
+    Vendor:
+      title: Vendor
+      x-stoplight:
+        id: o5etz7u2v7wkh
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        officalSite:
+          type: string
+        location:
+          type: string
+        tel:
+          type: string
+        industry:
+          type: string
+        email:
+          type: string
+        companyOwnedType:
+          type: string
+        owner:
+          type: object
+          required:
+            - id
+            - name
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        description:
+          type: string
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        deleted:
+          type: boolean
+        deletedBy:
+          type: string
+        deletedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - officalSite
+        - location
+        - tel
+        - industry
+        - email
+        - companyOwnedType
+        - owner
+        - description
+        - createdBy
+        - createdAt
+        - updatedBy
+        - updatedAt
+        - deleted
+        - deletedBy
+        - deletedAt
+    StockIn:
+      title: StockIn
+      x-stoplight:
+        id: b16ft2n5u8dzq
+      type: object
+      properties:
+        id:
+          type: string
+        quantity:
+          type: integer
+        type:
+          type: string
+        batch:
+          type: integer
+        vendor:
+          type: object
+          required:
+            - id
+            - name
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        inBy:
+          type: string
+        inByName:
+          type: string
+        inDate:
+          type: string
+        purchaseOrder:
+          type: object
+          required:
+            - id
+            - title
+            - code
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+            code:
+              type: string
+        deliveryOrder:
+          type: object
+          required:
+            - id
+            - title
+            - code
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+            code:
+              type: string
+        description:
+          type: string
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        deleted:
+          type: boolean
+        deletedBy:
+          type: string
+        deletedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - quantity
+        - type
+        - batch
+        - vendor
+        - inBy
+        - inByName
+        - inDate
+        - purchaseOrder
+        - deliveryOrder
+        - description
+        - createdBy
+        - createdAt
+        - updatedBy
+        - updatedAt
+        - deleted
+        - deletedBy
+        - deletedAt
+    StockOut:
+      title: StockOut
+      x-stoplight:
+        id: 6gb3cz99xmsoo
+      type: object
+      properties:
+        id:
+          type: string
+        quantity:
+          type: integer
+        type:
+          type: string
+        stock:
+          type: object
+          required:
+            - id
+            - title
+            - batch
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+            batch:
+              type: string
+        outBy:
+          type: string
+        outByName:
+          type: string
+        outDate:
+          type: string
+        salesOrder:
+          type: object
+          required:
+            - id
+            - title
+            - code
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+            code:
+              type: string
+        description:
+          type: string
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        deleted:
+          type: boolean
+        deletedBy:
+          type: string
+        deletedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - quantity
+        - type
+        - stock
+        - outBy
+        - outByName
+        - outDate
+        - salesOrder
+        - description
+        - createdBy
+        - createdAt
+        - updatedBy
+        - updatedAt
+        - deleted
+        - deletedBy
+        - deletedAt
+tags:
+  - name: Purchase Order Management
+  - name: Sales Order Management
+  - name: Stock Management
+  - name: Vendor Management

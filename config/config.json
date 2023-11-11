@@ -1,0 +1,24 @@
+{
+
+  "local": {
+    "username": "sunk",
+    "password": "",
+    "database": "sunk",
+    "host": "127.0.0.1",
+    "dialect": "postgresql"
+  },
+  "development": {
+    "username": "sunk",
+    "password": "",
+    "database": "sunk",
+    "host": "127.0.0.1",
+    "dialect": "postgresql"
+  },
+  "production": {
+    "username": "sunk",
+    "password": "",
+    "database": "sunk",
+    "host": "127.0.0.1",
+    "dialect": "postgresql"
+  }
+}
