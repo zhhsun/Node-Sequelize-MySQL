@@ -60,8 +60,8 @@ module.exports = {
    */
   async getUserById(req, res) {
     try {
-      const order = await userService.createUser(logger, req.query.id);
-      res.status(201).send(order);
+      const user = await userService.getUserById(logger, req.params.id);
+      res.status(201).send(user);
     } catch (err) {
       BaseController.parseException(res, err);
     }

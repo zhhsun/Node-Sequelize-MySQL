@@ -38,8 +38,8 @@ module.exports = {
   /**
    * get user by id
    */
-  async getUserById(logger, orderId) {
-    return await Users.findByPk({
+  async getUserById(logger, userId) {
+    return await Users.findOne({
       where: {
         id: userId
       }
