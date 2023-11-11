@@ -61,7 +61,8 @@ module.exports = {
   async getUserById(req, res) {
     try {
       const user = await userService.getUserById(logger, req.params.id);
-      res.status(201).send(user);
+      if (!user) throw new Exceptions.EntityNotFoundException(`User with id ${req.params.id} not found`);
+      res.status(200).send(user);
     } catch (err) {
       BaseController.parseException(res, err);
     }
