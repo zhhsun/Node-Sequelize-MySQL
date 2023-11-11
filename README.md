@@ -1,4 +1,4 @@
-# WZK-JXC
+# NODE + SEQUELIZE + MYSQL
 
 ## Setup
 
