@@ -31,6 +31,7 @@ module.exports = {
         },
         offset,
         limit,
+        raw: true
       });
     } catch (error) {
       logger.error('List production planning management items error: ', error);
@@ -47,6 +48,7 @@ module.exports = {
         where: {
           id: itemId,
         },
+        raw: true
       });
     } catch (err) {
       logger.error('Get production planning management item error: ', err);

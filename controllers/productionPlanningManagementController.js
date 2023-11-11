@@ -10,6 +10,7 @@ const logger = winston.createLogger({
 const BaseController = require('./baseController');
 const { productionPlanningManagementService } = require('../services')
 const Exceptions = require('../exceptions');
+const { itemSerializer } = require('./serializers/productionPlanningManagementItemSerializer');
 
 module.exports = {
   /**
@@ -51,7 +52,7 @@ module.exports = {
       if (limit < 0 || limit > 100) throw new Exceptions.BadInputException('limit must be in [0, 100]');
 
       const items = await productionPlanningManagementService.listItems(logger, offset, limit);
-      res.status(200).send(items);
+      res.status(200).send(items.map(itemSerializer));
     } catch (err) {
       BaseController.parseException(res, err);
     }
@@ -64,7 +65,7 @@ module.exports = {
     try {
       const item = await productionPlanningManagementService.getItemById(logger, req.params.id);
       if (!item) throw new Exceptions.EntityNotFoundException(`Item with id ${req.params.id} not found`);
-      res.status(200).send(item);
+      res.status(200).send(itemSerializer(item));
     } catch (err) {
       BaseController.parseException(res, err);
     }
