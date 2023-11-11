@@ -3,12 +3,6 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
     await queryInterface.createTable('users', {
       id: {
         type: Sequelize.DataTypes.UUID,
@@ -37,11 +31,11 @@ module.exports = {
         type: Sequelize.DataTypes.BOOLEAN,
         defaultValue: false,
       },
-      createdAt: {
+      created_at: {
         type: Sequelize.DataTypes.DATE,
         defaultValue: new Date(),
       },
-      updatedAt: {
+      updated_at: {
         type: Sequelize.DataTypes.DATE,
         defaultValue: new Date()
       }

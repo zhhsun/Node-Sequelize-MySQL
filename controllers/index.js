@@ -1,5 +1,6 @@
 'use strict';
 
 module.exports = {
-  userController: require('./userController')
+  userController: require('./userController'),
+  productionPlanningManagementController: require('./productionPlanningManagementController')
 };

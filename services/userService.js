@@ -6,11 +6,11 @@ module.exports = {
   /**
    * create a user
    * @param {Object} logger
-   * @param {Object} order
+   * @param {Object} user
    */
-  async createUser(logger, order) {
+  async createUser(logger, user) {
     try {
-      return await Users.create({ ...order, createdAt: new Date().toISOString() });
+      return await Users.create({ ...user, createdAt: new Date().toISOString() });
     } catch (error) {
       logger.error('Create user error: ', error);
       throw error;

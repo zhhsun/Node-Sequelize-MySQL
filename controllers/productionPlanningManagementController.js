@@ -1,0 +1,72 @@
+'use strict';
+
+const { v4: uuidV4 } = require('uuid');
+const _ = require('lodash');
+const winston = require('winston');
+const logger = winston.createLogger({
+  transports: [new winston.transports.Console()],
+});
+
+const BaseController = require('./baseController');
+const { productionPlanningManagementService } = require('../services')
+const Exceptions = require('../exceptions');
+
+module.exports = {
+  /**
+   * 
+   */
+  async create(req, res) {
+    try {
+      const { modelName, modelType, productNumber } = req.body;
+
+      if (typeof modelName !== 'string')
+        throw new Exceptions.BadInputException('Model name must be a valid string');
+      if (typeof modelType !== 'string')
+        throw new Exceptions.BadInputException('Model type must be a valid string');
+      if (typeof productNumber !== 'string')
+        throw new Exceptions.BadInputException('Product number must be a valid string');
+
+        const payload = {
+          id: uuidV4(),
+          ..._.pick(req.body, ['ModelNumber', 'modelName', 'modelType', 'productNumber', 'productName', 'planningNumber', 'planningStartAt', 'planningEndAt', 'deliveryAt'])
+        };
+      
+      const item = await productionPlanningManagementService.createItem(logger, payload);
+      res.status(201).send(item);
+    } catch (err) {
+      BaseController.parseException(res, err);
+    }
+  },
+
+  /**
+   * 
+   */
+  async list(req, res) {
+    try {
+      const { offset = 0, limit = 100 } = req.query;
+
+      if (!Number.isInteger(offset)) throw new Exceptions.BadInputException('offset must be a integer');
+      if (!Number.isInteger(limit)) throw new Exceptions.BadInputException('limit must be a integer');
+      if (offset < 0) throw new Exceptions.BadInputException('offset must be a positive integer');
+      if (limit < 0 || limit > 100) throw new Exceptions.BadInputException('limit must be in [0, 100]');
+
+      const items = await productionPlanningManagementService.listItems(logger, offset, limit);
+      res.status(200).send(items);
+    } catch (err) {
+      BaseController.parseException(res, err);
+    }
+  },
+
+  /**
+   * 
+   */
+  async getItemById(req, res) {
+    try {
+      const item = await productionPlanningManagementService.getItemById(logger, req.params.id);
+      if (!item) throw new Exceptions.EntityNotFoundException(`Item with id ${req.params.id} not found`);
+      res.status(200).send(item);
+    } catch (err) {
+      BaseController.parseException(res, err);
+    }
+  },
+};
