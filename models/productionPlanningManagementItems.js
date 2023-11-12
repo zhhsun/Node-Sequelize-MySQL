@@ -23,70 +23,70 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         length: 127,
         allowNull: true,
-        field: 'model_number'
+        field: 'model_number',
       },
       modelName: {
         type: DataTypes.STRING,
         length: 127,
         allowNull: false,
-        field: 'model_name'
+        field: 'model_name',
       },
       modelType: {
         type: DataTypes.STRING,
         length: 127,
         allowNull: false,
-        field: 'model_type'
+        field: 'model_type',
       },
       productName: {
         type: DataTypes.STRING,
         length: 127,
         allowNull: false,
-        field: 'product_name'
+        field: 'product_name',
       },
       productNumber: {
         type: DataTypes.STRING,
         length: 127,
         allowNull: false,
-        field: 'product_number'
+        field: 'product_number',
       },
       planningNumber: {
         type: DataTypes.STRING,
         length: 127,
         allowNull: true,
-        field: 'planning_number'
+        field: 'planning_number',
       },
       planningStartAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        field: 'planning_start_at'
+        field: 'planning_start_at',
       },
       planningEndAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        field: 'planning_end_at'
+        field: 'planning_end_at',
       },
       deliveryAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        field: 'delivery_at'
+        field: 'delivery_at',
       },
       selfMakingProgress: {
         type: DataTypes.FLOAT,
         defaultValue: 0,
         allowNull: true,
-        field: 'self_making_progress'
+        field: 'self_making_progress',
       },
       purchaseProgress: {
         type: DataTypes.FLOAT,
         defaultValue: 0,
         allowNull: true,
-        field: 'purchase_progress'
+        field: 'purchase_progress',
       },
       nonSelfMakingProgress: {
         type: DataTypes.FLOAT,
         defaultValue: 0,
         allowNull: true,
-        field: 'non_self_making_progress'
+        field: 'non_self_making_progress',
       },
       note: {
         type: DataTypes.TEXT,
@@ -99,12 +99,12 @@ module.exports = (sequelize, DataTypes) => {
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: new Date(),
-        field: 'created_at'
+        field: 'created_at',
       },
       updatedAt: {
         type: DataTypes.DATE,
         defaultValue: new Date(),
-        field: 'updated_at'
+        field: 'updated_at',
       },
     },
     {

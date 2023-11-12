@@ -2,5 +2,5 @@
 
 module.exports = {
   userService: require('./userService'),
-  productionPlanningManagementService: require('./productionPlanningManagementService')
-}
+  productionPlanningManagementService: require('./productionPlanningManagementService'),
+};

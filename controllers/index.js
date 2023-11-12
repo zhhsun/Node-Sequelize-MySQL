@@ -2,5 +2,5 @@
 
 module.exports = {
   userController: require('./userController'),
-  productionPlanningManagementController: require('./productionPlanningManagementController')
+  productionPlanningManagementController: require('./productionPlanningManagementController'),
 };

@@ -39,12 +39,12 @@ module.exports = (sequelize, DataTypes) => {
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: new Date(),
-        field: 'created_at'
+        field: 'created_at',
       },
       updatedAt: {
         type: DataTypes.DATE,
         defaultValue: new Date(),
-        field: 'updated_at'
+        field: 'updated_at',
       },
     },
     {

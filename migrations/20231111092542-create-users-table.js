@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.DataTypes.BIGINT,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       name: {
         type: Sequelize.DataTypes.STRING,
@@ -37,8 +37,8 @@ module.exports = {
       },
       updated_at: {
         type: Sequelize.DataTypes.DATE,
-        defaultValue: new Date()
-      }
+        defaultValue: new Date(),
+      },
     });
   },
 

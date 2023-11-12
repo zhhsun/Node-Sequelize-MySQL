@@ -46,27 +46,27 @@ module.exports = {
       },
       planning_start_at: {
         type: Sequelize.DataTypes.DATE,
-        allowNull: false
+        allowNull: false,
       },
       planning_end_at: {
         type: Sequelize.DataTypes.DATE,
-        allowNull: false
+        allowNull: false,
       },
       delivery_at: {
         type: Sequelize.DataTypes.DATE,
-        allowNull: false
+        allowNull: false,
       },
       self_making_progress: {
         type: Sequelize.DataTypes.FLOAT,
-        allowNull: true
+        allowNull: true,
       },
       purchase_progress: {
         type: Sequelize.DataTypes.FLOAT,
-        allowNull: true
+        allowNull: true,
       },
       non_self_making_progress: {
         type: Sequelize.DataTypes.FLOAT,
-        allowNull: true
+        allowNull: true,
       },
       note: {
         type: Sequelize.DataTypes.TEXT,
@@ -83,7 +83,7 @@ module.exports = {
       updated_at: {
         type: Sequelize.DataTypes.DATE,
         defaultValue: new Date(),
-      }
+      },
     });
   },
 

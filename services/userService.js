@@ -1,6 +1,6 @@
 'use strict';
 
-const { Users } = require('../models')
+const { Users } = require('../models');
 
 module.exports = {
   /**
@@ -10,7 +10,10 @@ module.exports = {
    */
   async createUser(logger, user) {
     try {
-      return await Users.create({ ...user, createdAt: new Date().toISOString() });
+      return await Users.create({
+        ...user,
+        createdAt: new Date().toISOString(),
+      });
     } catch (error) {
       logger.error('Create user error: ', error);
       throw error;
@@ -24,10 +27,10 @@ module.exports = {
     try {
       return await Users.findAll({
         where: {
-          deleted: false
+          deleted: false,
         },
         offset,
-        limit
+        limit,
       });
     } catch (error) {
       logger.error('List Users error: ', error);
@@ -41,8 +44,8 @@ module.exports = {
   async getUserById(logger, userId) {
     return await Users.findOne({
       where: {
-        id: userId
-      }
-    })
-  }
+        id: userId,
+      },
+    });
+  },
 };
