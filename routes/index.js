@@ -33,5 +33,13 @@ router.get(
   `${v1ApiPrefix}/production-planning-management/items/:id`,
   productionPlanningManagementController.getItemById
 );
+router.delete(
+  `${v1ApiPrefix}/production-planning-management/items/:id`,
+  productionPlanningManagementController.deleteItemById
+);
+router.patch(
+  `${v1ApiPrefix}/production-planning-management/items/:id`,
+  productionPlanningManagementController.updateItemById
+);
 
 module.exports = router;

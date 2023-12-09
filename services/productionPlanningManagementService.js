@@ -23,11 +23,12 @@ module.exports = {
   /**
    * list items
    */
-  async listItems(logger, offset = 0, limit = 100) {
+  async listItems(logger, queryConditions, offset = 0, limit = 100) {
     try {
       return await ProductionPlanningManagementItems.findAll({
         where: {
           deleted: false,
+          ...queryConditions
         },
         offset,
         limit,
@@ -52,6 +53,48 @@ module.exports = {
       });
     } catch (err) {
       logger.error('Get production planning management item error: ', err);
+      throw err;
+    }
+  },
+
+  /**
+   * delete item by id
+   */
+  async deleteItemById(logger, itemId) {
+    try {
+      return await ProductionPlanningManagementItems.update(
+        {
+          deleted: true,
+        },
+        {
+          where: {
+            id: itemId,
+          },
+        }
+      );
+    } catch (err) {
+      logger.error('Delete production planning management item error: ', err);
+      throw err;
+    }
+  },
+
+  /**
+   * update item by id
+   */
+  async updateItemById(logger, itemId, newData) {
+    try {
+      return await ProductionPlanningManagementItems.update(
+        {
+          ...newData
+        },
+        {
+          where: {
+            id: itemId,
+          },
+        }
+      );
+    } catch (err) {
+      logger.error('Update production planning management item error: ', err);
       throw err;
     }
   },
