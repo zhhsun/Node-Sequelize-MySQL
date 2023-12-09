@@ -83,16 +83,22 @@ module.exports = {
    */
   async updateItemById(logger, itemId, newData) {
     try {
-      return await ProductionPlanningManagementItems.update(
+      await ProductionPlanningManagementItems.update(
         {
           ...newData
         },
         {
           where: {
             id: itemId,
-          },
+          }
         }
       );
+      return await ProductionPlanningManagementItems.findOne({
+        where: {
+          id: itemId,
+        },
+        raw: true,
+      });
     } catch (err) {
       logger.error('Update production planning management item error: ', err);
       throw err;
