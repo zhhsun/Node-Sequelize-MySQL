@@ -47,6 +47,7 @@ module.exports = {
           'planningStartAt',
           'planningEndAt',
           'deliveryAt',
+          'note'
         ]),
       };
 
@@ -156,6 +157,7 @@ module.exports = {
         'planningStartAt',
         'planningEndAt',
         'deliveryAt',
+        'note'
       ]);
 
       const newItem = await productionPlanningManagementService.updateItemById(logger, item.id, newData);
