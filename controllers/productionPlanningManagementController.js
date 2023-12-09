@@ -126,8 +126,8 @@ module.exports = {
         throw new Exceptions.EntityNotFoundException(
           `Item with id ${req.params.id} not found`
         );
-      await productionPlanningManagementService.deleteItemById(item.id);
-      res.status(204);
+      await productionPlanningManagementService.deleteItemById(logger, item.id);
+      res.status(204).end();
     } catch (err) {
       BaseController.parseException(res, err);
     }
