@@ -59,7 +59,7 @@ router.delete(
   productionTaskManagementDirectoryController.deleteNodeById
 );
 router.patch(
-  `${v1ApiPrefix}/production-task-management/items/:id`,
+  `${v1ApiPrefix}/production-task-management/nodes/:id`,
   productionTaskManagementDirectoryController.updateNodeNameById
 );
 

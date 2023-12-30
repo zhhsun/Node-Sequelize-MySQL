@@ -62,7 +62,7 @@ module.exports = {
    */
   async list(req, res) {
     try {
-      const { parentId } = req.query;
+      const { id: parentId } = req.params;
 
       if (typeof parentId !== 'string')
         throw new Exceptions.BadInputException('parent id must be specified');
