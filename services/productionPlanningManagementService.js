@@ -28,7 +28,7 @@ module.exports = {
       return await ProductionPlanningManagementItems.findAll({
         where: {
           deleted: false,
-          ...queryConditions
+          ...queryConditions,
         },
         offset,
         limit,
@@ -85,12 +85,12 @@ module.exports = {
     try {
       await ProductionPlanningManagementItems.update(
         {
-          ...newData
+          ...newData,
         },
         {
           where: {
             id: itemId,
-          }
+          },
         }
       );
       return await ProductionPlanningManagementItems.findOne({

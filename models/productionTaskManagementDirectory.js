@@ -19,9 +19,11 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         allowNull: false,
       },
-      parent_id: {
+      parentId: {
         type: Sequelize.DataTypes.BIGINT,
         allowNull: false,
+        defaultValue: 0,
+        field: 'parent_id',
       },
       name: {
         type: Sequelize.DataTypes.STRING,

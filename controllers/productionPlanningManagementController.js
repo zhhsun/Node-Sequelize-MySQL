@@ -47,7 +47,7 @@ module.exports = {
           'planningStartAt',
           'planningEndAt',
           'deliveryAt',
-          'note'
+          'note',
         ]),
       };
 
@@ -157,10 +157,14 @@ module.exports = {
         'planningStartAt',
         'planningEndAt',
         'deliveryAt',
-        'note'
+        'note',
       ]);
 
-      const newItem = await productionPlanningManagementService.updateItemById(logger, item.id, newData);
+      const newItem = await productionPlanningManagementService.updateItemById(
+        logger,
+        item.id,
+        newData
+      );
       console.log(JSON.stringify(newItem, null, 2));
       res.status(200).send(itemSerializer(newItem));
     } catch (err) {

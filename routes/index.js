@@ -6,6 +6,7 @@ const router = express.Router();
 const {
   userController,
   productionPlanningManagementController,
+  productionTaskManagementDirectoryController,
 } = require('../controllers');
 
 const v1ApiPrefix = '/v1/api';
@@ -40,6 +41,26 @@ router.delete(
 router.patch(
   `${v1ApiPrefix}/production-planning-management/items/:id`,
   productionPlanningManagementController.updateItemById
+);
+
+/**
+ *
+ */
+router.post(
+  `${v1ApiPrefix}/production-task-management/nodes`,
+  productionTaskManagementDirectoryController.create
+);
+router.get(
+  `${v1ApiPrefix}/production-task-management/nodes/:id/nodes`,
+  productionTaskManagementDirectoryController.list
+);
+router.delete(
+  `${v1ApiPrefix}/production-task-management/nodes/:id`,
+  productionTaskManagementDirectoryController.deleteNodeById
+);
+router.patch(
+  `${v1ApiPrefix}/production-task-management/items/:id`,
+  productionTaskManagementDirectoryController.updateNodeNameById
 );
 
 module.exports = router;
