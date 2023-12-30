@@ -56,6 +56,23 @@ module.exports = {
   },
 
   /**
+   * get node by int id
+   */
+  async getNodeByIntId(logger, nodeId) {
+    try {
+      return await ProductionTaskManagementDirectory.findOne({
+        where: {
+          _id: nodeId,
+        },
+        raw: true,
+      });
+    } catch (err) {
+      logger.error('Get production task management node error: ', err);
+      throw err;
+    }
+  },
+
+  /**
    * delete node by id
    */
   async deleteNodeById(logger, nodeId) {

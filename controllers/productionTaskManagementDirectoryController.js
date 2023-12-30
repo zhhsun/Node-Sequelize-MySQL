@@ -51,7 +51,9 @@ module.exports = {
         logger,
         payload
       );
-      res.status(201).send(node);
+      node.parentId = parentId || null;
+      
+      res.status(201).send(nodeSerializer(node.toJSON()));
     } catch (err) {
       BaseController.parseException(res, err);
     }
@@ -80,7 +82,10 @@ module.exports = {
         logger,
         parentNode._id
       );
-      res.status(200).send(nodes.map(nodeSerializer));
+      res.status(200).send(nodes.map((node) => {
+        node.parentId = parentId;
+        return nodeSerializer(node);
+      }));
     } catch (err) {
       BaseController.parseException(res, err);
     }
@@ -131,6 +136,14 @@ module.exports = {
           node.id,
           newName
         );
+      const parentNode =
+        await productionTaskManagementDirectoryService.getNodeByIntId(
+          logger,
+          newNode.parentId
+        );
+      if (!parentNode) newNode.parentId = null;
+      else newNode.parentId = parentNode.id;
+
       res.status(200).send(nodeSerializer(newNode));
     } catch (err) {
       BaseController.parseException(res, err);
