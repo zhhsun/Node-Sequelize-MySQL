@@ -20,7 +20,7 @@ module.exports = {
    */
   async create(req, res) {
     try {
-      const { name, type, parentNodeId } = req.body;
+      const { name, type, parentId } = req.body;
 
       if (typeof name !== 'string')
         throw new Exceptions.BadInputException(
@@ -36,11 +36,11 @@ module.exports = {
         ..._.pick(req.body, ['name', 'type']),
       };
 
-      if (parentNodeId) {
+      if (parentId) {
         const parentNode =
           await productionTaskManagementDirectoryService.getNodeById(
             logger,
-            parentNodeId
+            parentId
           );
         if (!parentNode)
           throw new Exceptions.BadInputException('Parent node do not exist');
