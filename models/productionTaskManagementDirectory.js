@@ -20,17 +20,17 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       parentId: {
-        type: Sequelize.DataTypes.BIGINT,
+        type: DataTypes.BIGINT,
         allowNull: false,
         defaultValue: 0,
         field: 'parent_id',
       },
       name: {
-        type: Sequelize.DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       type: {
-        type: Sequelize.DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       deleted: {

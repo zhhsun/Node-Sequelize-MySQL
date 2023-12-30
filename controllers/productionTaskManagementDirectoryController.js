@@ -12,7 +12,7 @@ const { productionTaskManagementDirectoryService } = require('../services');
 const Exceptions = require('../exceptions');
 const {
   nodeSerializer,
-} = require('./serializers//productionTaskManagementDirNodeSerializer');
+} = require('./serializers/productionTaskManagementDirNodeSerializer');
 
 module.exports = {
   /**
