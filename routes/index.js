@@ -54,6 +54,10 @@ router.get(
   `${v1ApiPrefix}/production-task-management/nodes/:id/nodes`,
   productionTaskManagementDirectoryController.list
 );
+router.get(
+  `${v1ApiPrefix}/production-task-management/top-nodes`,
+  productionTaskManagementDirectoryController.listTopNodes
+);
 router.delete(
   `${v1ApiPrefix}/production-task-management/nodes/:id`,
   productionTaskManagementDirectoryController.deleteNodeById

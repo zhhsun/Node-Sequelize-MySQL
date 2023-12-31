@@ -39,6 +39,24 @@ module.exports = {
   },
 
   /**
+   * list top nodes
+   */
+  async listTopNodes(logger, parentId) {
+    try {
+      return await ProductionTaskManagementDirectory.findAll({
+        where: {
+          deleted: false,
+          parentId: 0,
+        },
+        raw: true,
+      });
+    } catch (error) {
+      logger.error('List production task management top node error: ', error);
+      throw error;
+    }
+  },
+
+  /**
    * get node by id
    */
   async getNodeById(logger, nodeId) {

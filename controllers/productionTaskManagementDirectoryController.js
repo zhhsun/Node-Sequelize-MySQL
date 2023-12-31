@@ -92,6 +92,21 @@ module.exports = {
   },
 
   /**
+   * 
+   */
+  async listTopNodes(req, res) {
+    try {
+      const nodes = await productionTaskManagementDirectoryService.listTopNodes(logger);
+      res.status(200).send(nodes.map((node) => {
+        node.parentId = null;
+        return nodeSerializer(node);
+      }));
+    } catch (err) {
+      BaseController.parseException(res, err);
+    }
+  },
+
+  /**
    *
    */
   async deleteNodeById(req, res) {
