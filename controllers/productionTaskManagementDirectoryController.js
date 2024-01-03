@@ -97,8 +97,9 @@ module.exports = {
   async listAllNodes(req, res) {
     try {
       const nodes = await productionTaskManagementDirectoryService.listAllNodes(logger);
+      const _idToNode = _.keyBy(nodes, '_id');
       res.status(200).send(nodes.map((node) => {
-        node.parentId = null;
+        node.parentId = _idToNode[node.parentId]?.id || null;
         return nodeSerializer(node);
       }));
     } catch (err) {

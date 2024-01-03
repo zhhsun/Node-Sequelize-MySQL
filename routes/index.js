@@ -55,7 +55,7 @@ router.get(
   productionTaskManagementDirectoryController.list
 );
 router.get(
-  `${v1ApiPrefix}/production-task-management/all-nodes`,
+  `${v1ApiPrefix}/production-task-management/nodes`,
   productionTaskManagementDirectoryController.listAllNodes
 );
 router.delete(
