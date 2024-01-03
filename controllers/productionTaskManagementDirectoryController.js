@@ -94,9 +94,9 @@ module.exports = {
   /**
    * 
    */
-  async listTopNodes(req, res) {
+  async listAllNodes(req, res) {
     try {
-      const nodes = await productionTaskManagementDirectoryService.listTopNodes(logger);
+      const nodes = await productionTaskManagementDirectoryService.listAllNodes(logger);
       res.status(200).send(nodes.map((node) => {
         node.parentId = null;
         return nodeSerializer(node);
