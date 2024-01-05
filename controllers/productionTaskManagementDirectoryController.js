@@ -144,13 +144,13 @@ module.exports = {
           `Node with id ${req.params.id} not found`
         );
 
-      const { newName } = req.body;
+      const { name } = req.body;
 
       const newNode =
         await productionTaskManagementDirectoryService.updateNodeNameById(
           logger,
           node.id,
-          newName
+          name
         );
       const parentNode =
         await productionTaskManagementDirectoryService.getNodeByIntId(
