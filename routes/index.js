@@ -64,7 +64,7 @@ router.delete(
 );
 router.patch(
   `${v1ApiPrefix}/production-task-management/nodes/:id`,
-  productionTaskManagementDirectoryController.updateNodeNameById
+  productionTaskManagementDirectoryController.updateNodeById
 );
 
 module.exports = router;

@@ -111,13 +111,13 @@ module.exports = {
   },
 
   /**
-   * update node name by id
+   * update node  by id
    */
-  async updateNodeNameById(logger, nodeId, name) {
+  async updateNodeById(logger, nodeId, { name, type } = {}) {
     try {
       await ProductionTaskManagementDirectory.update(
         {
-          name
+          name, type
         },
         {
           where: {
