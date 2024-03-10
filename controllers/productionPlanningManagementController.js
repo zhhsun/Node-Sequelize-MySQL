@@ -165,7 +165,7 @@ module.exports = {
         item.id,
         newData
       );
-      console.log(JSON.stringify(newItem, null, 2));
+
       res.status(200).send(itemSerializer(newItem));
     } catch (err) {
       BaseController.parseException(res, err);
