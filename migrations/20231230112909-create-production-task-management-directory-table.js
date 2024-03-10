@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('production_task_management_directory', {
+    await queryInterface.createTable('production_task_management_directories', {
       id: {
         type: Sequelize.DataTypes.UUID,
         allowNull: false,
@@ -50,6 +50,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('production_task_management_directory');
+    await queryInterface.dropTable('production_task_management_directories');
   },
 };
