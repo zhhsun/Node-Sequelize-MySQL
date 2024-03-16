@@ -81,11 +81,11 @@ router.get(
 );
 router.delete(
   `${v1ApiPrefix}/production-task-management/items/:id`,
-  productionTaskManagementController.deleteItemById
+  productionTaskManagementController.deleteTaskById
 );
 router.patch(
   `${v1ApiPrefix}/production-task-management/items/:id`,
-  productionTaskManagementController.updateItemById
+  productionTaskManagementController.updateTaskById
 );
 
 module.exports = router;

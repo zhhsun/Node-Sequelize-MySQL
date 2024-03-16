@@ -14,6 +14,11 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
+      parent_id: {
+        type: Sequelize.DataTypes.BIGINT,
+        references: { model: 'production_task_management_directories', key: '_id' },
+        allowNull: true,
+      },
       model_number: {
         type: Sequelize.DataTypes.STRING,
         length: 127,
@@ -46,10 +51,6 @@ module.exports = {
       },
       delivery_at: {
         type: Sequelize.DataTypes.DATE,
-        allowNull: false,
-      },
-      dir_id: {
-        type: Sequelize.DataTypes.BIGINT,
         allowNull: false,
       },
       note: {

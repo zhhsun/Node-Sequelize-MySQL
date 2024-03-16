@@ -20,17 +20,13 @@ module.exports = {
    */
   async create(req, res) {
     try {
-      const { name, parentId } = req.body;
+      const { parentId } = req.body;
 
       if (!parentId) {
         throw new Exceptions.BadInputException('Parent id must be specified');
       }
 
-      if (typeof name !== 'string')
-        throw new Exceptions.BadInputException(
-          'Node name must be a valid string'
-        );
-
+      let parentIntId = null;
       if (parentId) {
         const parentNode =
           await productionTaskManagementDirectoryService.getNodeById(
@@ -39,13 +35,13 @@ module.exports = {
           );
         if (!parentNode)
           throw new Exceptions.BadInputException('Parent node do not exist');
-        payload.parentId = parentNode._id;
+        parentIntId = parentNode._id;
       }
 
       const payload = {
         id: uuidV4(),
+        parentId: parentIntId,
         ..._.pick(req.body, [
-          'parentId',
           'modelNumber',
           'modelName',
           'modelType',
@@ -65,8 +61,9 @@ module.exports = {
       );
       task.parentId = parentId || null;
       
-      res.status(201).send(itemSerializer(node.toJSON()));
+      res.status(201).send(itemSerializer(task.toJSON()));
     } catch (err) {
+      console.log('>>>>>>>>>>>>>', err);
       BaseController.parseException(res, err);
     }
   },

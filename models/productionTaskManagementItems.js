@@ -19,6 +19,12 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         allowNull: false,
       },
+      parentId: {
+        type: DataTypes.BIGINT,
+        allowNull: true,
+        references: { model: 'ProductionTaskManagementDirectory', key: '_id' },
+        field: 'parent_id'
+      },
       modelNumber: {
         type: DataTypes.STRING,
         length: 127,
@@ -58,11 +64,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         allowNull: false,
         field: 'delivery_at',
-      },
-      dirId: {
-        type: DataTypes.BIGINT,
-        allowNull: false,
-        field: 'dir_id',
       },
       note: {
         type: DataTypes.TEXT,
