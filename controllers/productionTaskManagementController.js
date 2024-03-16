@@ -63,7 +63,6 @@ module.exports = {
       
       res.status(201).send(itemSerializer(task.toJSON()));
     } catch (err) {
-      console.log('>>>>>>>>>>>>>', err);
       BaseController.parseException(res, err);
     }
   },
@@ -73,13 +72,13 @@ module.exports = {
    */
   async list(req, res) {
     try {
-      const { id: parentId } = req.params;
+      const { nodeId: parentId } = req.params;
 
       if (typeof parentId !== 'string')
         throw new Exceptions.BadInputException('parent id must be specified');
 
       const parentNode =
-        await productionTaskManagementDirectoryService.getTasksById(
+        await productionTaskManagementDirectoryService.getNodeById(
           logger,
           parentId
         );
@@ -89,7 +88,9 @@ module.exports = {
 
       const tasks = await productionTaskManagementService.listTasks(
         logger,
-        parentNode._id
+        {
+          parentId: parentNode._id
+        }
       );
       res.status(200).send(tasks.map((task) => {
         task.parentId = parentId;
@@ -156,7 +157,7 @@ module.exports = {
           newData
         );
       
-      newTask.parentId = parentNode.id;
+      newTask.parentId = newTask.id;
 
       res.status(200).send(itemSerializer(newTask));
     } catch (err) {

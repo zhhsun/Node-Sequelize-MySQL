@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
       parentId: {
         type: DataTypes.BIGINT,
         allowNull: true,
-        references: { model: 'ProductionTaskManagementDirectory', key: '_id' },
         field: 'parent_id'
       },
       modelNumber: {

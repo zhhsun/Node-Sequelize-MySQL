@@ -72,19 +72,19 @@ router.patch(
  * 
  */
 router.post(
-  `${v1ApiPrefix}/production-task-management/items`,
+  `${v1ApiPrefix}/production-task-management/tasks`,
   productionTaskManagementController.create
 );
 router.get(
-  `${v1ApiPrefix}/production-task-management/items`,
+  `${v1ApiPrefix}/production-task-management/nodes/:nodeId/tasks`,
   productionTaskManagementController.list
 );
 router.delete(
-  `${v1ApiPrefix}/production-task-management/items/:id`,
+  `${v1ApiPrefix}/production-task-management/tasks/:id`,
   productionTaskManagementController.deleteTaskById
 );
 router.patch(
-  `${v1ApiPrefix}/production-task-management/items/:id`,
+  `${v1ApiPrefix}/production-task-management/tasks/:id`,
   productionTaskManagementController.updateTaskById
 );
 

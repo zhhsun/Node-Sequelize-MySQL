@@ -16,7 +16,6 @@ module.exports = {
       },
       parent_id: {
         type: Sequelize.DataTypes.BIGINT,
-        references: { model: 'production_task_management_directories', key: '_id' },
         allowNull: true,
       },
       model_number: {

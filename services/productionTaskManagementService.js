@@ -41,13 +41,13 @@ module.exports = {
   },
 
   /**
-   * get item by id
+   * get task by id
    */
-  async getItemById(logger, itemId) {
+  async getTaskById(logger, taskId) {
     try {
       return await ProductionTaskManagementItems.findOne({
         where: {
-          id: itemId,
+          id: taskId,
         },
         raw: true,
       });
@@ -58,9 +58,9 @@ module.exports = {
   },
 
   /**
-   * delete item by id
+   * delete task by id
    */
-  async deleteTaskById(logger, itemId) {
+  async deleteTaskById(logger, taskId) {
     try {
       return await ProductionTaskManagementItems.update(
         {
@@ -68,7 +68,7 @@ module.exports = {
         },
         {
           where: {
-            id: itemId,
+            id: taskId,
           },
         }
       );
