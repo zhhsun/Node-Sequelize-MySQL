@@ -14,13 +14,19 @@ const {
   itemSerializer,
 } = require('./serializers/standardItemSerilizer');
 
+const itemStateDict = {
+  PREPARING: 0,
+  PURCHARSING: 1
+};
+
 module.exports = {
   /**
    *
    */
   async create(req, res) {
     try {
-      const { parentId, count, state } = req.body;
+      const { parentId, count } = req.body;
+      let { state = null } = req.body;
 
       if (!parentId) {
         throw new Exceptions.BadInputException('Parent id must be specified');
@@ -30,8 +36,11 @@ module.exports = {
         throw new Exceptions.BadInputException('count must be integer');
       }
 
-      if (state && ['PREPARING', 'PURCHARSING'].includes(state)) {
-        throw new Exceptions.BadInputException('state is not valid');
+      if (state) {
+        if ( !['PREPARING', 'PURCHARSING'].includes(state))
+          throw new Exceptions.BadInputException('state is not valid');
+        else
+          state = itemStateDict[state];
       }
 
       let parentIntId = null;
@@ -49,11 +58,11 @@ module.exports = {
       const payload = {
         id: uuidV4(),
         parentId: parentIntId,
+        state,
         ..._.pick(req.body, [
           'name',
           'type',
           'count',
-          'state',
           'purchaseOrderId',
           'supplierId',
           'requiredAt',
@@ -135,18 +144,19 @@ module.exports = {
    */
   async updateItemById(req, res) {
     try {
-      const { parentId, count, state } = req.body;
+      const { count } = req.body;
+      let { state = null } = req.body;
 
-      if (!parentId) {
-        throw new Exceptions.BadInputException('Parent id must be specified');
-      }
 
       if (count && typeof count !== 'number') {
         throw new Exceptions.BadInputException('count must be integer');
       }
 
-      if (state && ['PREPARING', 'PURCHARSING'].includes(state)) {
-        throw new Exceptions.BadInputException('state is not valid');
+      if (state) {
+        if ( !['PREPARING', 'PURCHARSING'].includes(state))
+          throw new Exceptions.BadInputException('state is not valid');
+        else
+          state = itemStateDict[state];
       }
 
       const item = await standardItemService.getItemById(
@@ -162,12 +172,13 @@ module.exports = {
         'name',
         'type',
         'count',
-        'state',
         'purchaseOrderId',
         'supplierId',
         'requiredAt',
         'note',
       ]);
+      if (state) newData.state = state;
+
       const newItem =
         await standardItemService.updateItemById(
           logger,

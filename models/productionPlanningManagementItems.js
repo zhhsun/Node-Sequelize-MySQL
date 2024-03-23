@@ -109,7 +109,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'production_planning_management_items',
+      tableName: 'production_planning_management_items',
     }
   );
 
