@@ -10,6 +10,7 @@ module.exports = {
    */
   async createItem(logger, item) {
     try {
+      console.log('>>>>>>>>>>>>', JSON.stringify(item, null, 2));
       return await StandardItems.create({
         ...item,
         createdAt: new Date().toISOString(),

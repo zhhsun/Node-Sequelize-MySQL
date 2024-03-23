@@ -37,11 +37,12 @@ module.exports = {
       }
 
       if (state) {
-        if ( !['PREPARING', 'PURCHARSING'].includes(state))
+        if (!['PREPARING', 'PURCHARSING'].includes(state))
           throw new Exceptions.BadInputException('state is not valid');
         else
           state = itemStateDict[state];
       }
+      console.log('>>>>>>>>', state);
 
       let parentIntId = null;
       if (parentId) {
