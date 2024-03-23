@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'ProductionTaskManagementDirectory',
+      modelName: 'production_task_management_directories',
     }
   );
 

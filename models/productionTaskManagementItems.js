@@ -93,7 +93,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'ProductionTaskManagementItems',
+      modelName: 'production_task_management_items',
     }
   );
 
