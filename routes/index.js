@@ -7,7 +7,8 @@ const {
   userController,
   productionPlanningManagementController,
   productionTaskManagementDirectoryController,
-  productionTaskManagementController
+  productionTaskManagementController,
+  standardItemController
 } = require('../controllers');
 
 const v1ApiPrefix = '/v1/api';
@@ -86,6 +87,26 @@ router.delete(
 router.patch(
   `${v1ApiPrefix}/production-task-management/tasks/:id`,
   productionTaskManagementController.updateTaskById
+);
+
+/**
+ *
+ */
+router.post(
+  `${v1ApiPrefix}/production-task-management/standard-items`,
+  standardItemController.create
+);
+router.get(
+  `${v1ApiPrefix}/production-task-management/nodes/:nodeId/standard-items`,
+  standardItemController.list
+);
+router.delete(
+  `${v1ApiPrefix}/production-task-management/standard-items/:id`,
+  standardItemController.deleteItemById
+);
+router.patch(
+  `${v1ApiPrefix}/production-task-management/standard-items/:id`,
+  standardItemController.updateItemById
 );
 
 module.exports = router;
