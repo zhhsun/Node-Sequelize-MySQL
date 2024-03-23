@@ -8,15 +8,16 @@ const logger = winston.createLogger({
 });
 
 const BaseController = require('./baseController');
-const { productionTaskManagementDirectoryService, standardItemService } = require('../services');
-const Exceptions = require('../exceptions');
 const {
-  itemSerializer,
-} = require('./serializers/standardItemSerilizer');
+  productionTaskManagementDirectoryService,
+  standardItemService,
+} = require('../services');
+const Exceptions = require('../exceptions');
+const { itemSerializer } = require('./serializers/standardItemSerilizer');
 
 const itemStateDict = {
   PREPARING: 0,
-  PURCHARSING: 1
+  PURCHARSING: 1,
 };
 
 module.exports = {
@@ -39,10 +40,8 @@ module.exports = {
       if (state) {
         if (!['PREPARING', 'PURCHARSING'].includes(state))
           throw new Exceptions.BadInputException('state is not valid');
-        else
-          state = itemStateDict[state];
+        else state = itemStateDict[state];
       }
-      console.log('>>>>>>>>', state);
 
       let parentIntId = null;
       if (parentId) {
@@ -71,12 +70,9 @@ module.exports = {
         ]),
       };
 
-      const item = await standardItemService.createItem(
-        logger,
-        payload
-      );
+      const item = await standardItemService.createItem(logger, payload);
       item.parentId = parentId || null;
-      
+
       res.status(201).send(itemSerializer(item.toJSON()));
     } catch (err) {
       BaseController.parseException(res, err);
@@ -102,16 +98,15 @@ module.exports = {
         throw new Exceptions.BadInputException('Parent node do not exist');
       }
 
-      const items = await standardItemService.listItems(
-        logger,
-        {
-          parentId: parentNode._id
-        }
+      const items = await standardItemService.listItems(logger, {
+        parentId: parentNode._id,
+      });
+      res.status(200).send(
+        items.map((item) => {
+          item.parentId = parentId;
+          return itemSerializer(item);
+        })
       );
-      res.status(200).send(items.map((item) => {
-        item.parentId = parentId;
-        return itemSerializer(item);
-      }));
     } catch (err) {
       BaseController.parseException(res, err);
     }
@@ -122,18 +117,12 @@ module.exports = {
    */
   async deleteItemById(req, res) {
     try {
-      const item = await standardItemService.getItemById(
-        logger,
-        req.params.id
-      );
+      const item = await standardItemService.getItemById(logger, req.params.id);
       if (!item || item.deleted)
         throw new Exceptions.EntityNotFoundException(
           `Item with id ${req.params.id} not found`
         );
-      await standardItemService.deleteItemById(
-        logger,
-        item.id
-      );
+      await standardItemService.deleteItemById(logger, item.id);
       res.status(204).end();
     } catch (err) {
       BaseController.parseException(res, err);
@@ -148,22 +137,17 @@ module.exports = {
       const { count } = req.body;
       let { state = null } = req.body;
 
-
       if (count && typeof count !== 'number') {
         throw new Exceptions.BadInputException('count must be integer');
       }
 
       if (state) {
-        if ( !['PREPARING', 'PURCHARSING'].includes(state))
+        if (!['PREPARING', 'PURCHARSING'].includes(state))
           throw new Exceptions.BadInputException('state is not valid');
-        else
-          state = itemStateDict[state];
+        else state = itemStateDict[state];
       }
 
-      const item = await standardItemService.getItemById(
-        logger,
-        req.params.id
-      );
+      const item = await standardItemService.getItemById(logger, req.params.id);
       if (!item || item.deleted)
         throw new Exceptions.EntityNotFoundException(
           `Item with id ${req.params.id} not found`
@@ -180,13 +164,12 @@ module.exports = {
       ]);
       if (state) newData.state = state;
 
-      const newItem =
-        await standardItemService.updateItemById(
-          logger,
-          item.id,
-          newData
-        );
-      
+      const newItem = await standardItemService.updateItemById(
+        logger,
+        item.id,
+        newData
+      );
+
       newItem.parentId = newItem.id;
 
       res.status(200).send(itemSerializer(newItem));

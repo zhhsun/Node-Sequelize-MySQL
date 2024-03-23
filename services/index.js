@@ -5,5 +5,5 @@ module.exports = {
   productionPlanningManagementService: require('./productionPlanningManagementService'),
   productionTaskManagementDirectoryService: require('./productionTaskManagementDirectoryService'),
   productionTaskManagementService: require('./productionTaskManagementService'),
-  standardItemService: require('./standardItemService')
+  standardItemService: require('./standardItemService'),
 };

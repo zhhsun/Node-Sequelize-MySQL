@@ -8,7 +8,7 @@ module.exports = {
    */
   parseException: (res, err) => {
     if (err instanceof Exceptions.BadInputException) {
-      res.status(400).send(err);
+      res.status(400).json(err);
     }
     if (err instanceof Exceptions.EntityNotFoundException) {
       res.status(404).send(err);

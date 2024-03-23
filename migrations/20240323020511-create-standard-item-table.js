@@ -31,7 +31,7 @@ module.exports = {
       count: {
         type: Sequelize.DataTypes.INTEGER,
         allowNull: true,
-        defaultValue: 0
+        defaultValue: 0,
       },
       state: {
         type: Sequelize.DataTypes.INTEGER,

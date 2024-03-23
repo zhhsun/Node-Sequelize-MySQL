@@ -8,7 +8,10 @@ const logger = winston.createLogger({
 });
 
 const BaseController = require('./baseController');
-const { productionTaskManagementService, productionTaskManagementDirectoryService } = require('../services');
+const {
+  productionTaskManagementService,
+  productionTaskManagementDirectoryService,
+} = require('../services');
 const Exceptions = require('../exceptions');
 const {
   itemSerializer,
@@ -60,7 +63,7 @@ module.exports = {
         payload
       );
       task.parentId = parentId || null;
-      
+
       res.status(201).send(itemSerializer(task.toJSON()));
     } catch (err) {
       BaseController.parseException(res, err);
@@ -86,16 +89,15 @@ module.exports = {
         throw new Exceptions.BadInputException('Parent node do not exist');
       }
 
-      const tasks = await productionTaskManagementService.listTasks(
-        logger,
-        {
-          parentId: parentNode._id
-        }
+      const tasks = await productionTaskManagementService.listTasks(logger, {
+        parentId: parentNode._id,
+      });
+      res.status(200).send(
+        tasks.map((task) => {
+          task.parentId = parentId;
+          return itemSerializer(task);
+        })
       );
-      res.status(200).send(tasks.map((task) => {
-        task.parentId = parentId;
-        return itemSerializer(task);
-      }));
     } catch (err) {
       BaseController.parseException(res, err);
     }
@@ -114,10 +116,7 @@ module.exports = {
         throw new Exceptions.EntityNotFoundException(
           `Node with id ${req.params.id} not found`
         );
-      await productionTaskManagementService.deleteTaskById(
-        logger,
-        node.id
-      );
+      await productionTaskManagementService.deleteTaskById(logger, node.id);
       res.status(204).end();
     } catch (err) {
       BaseController.parseException(res, err);
@@ -150,13 +149,12 @@ module.exports = {
         'deliveryAt',
         'note',
       ]);
-      const newTask =
-        await productionTaskManagementService.updateTaskById(
-          logger,
-          task.id,
-          newData
-        );
-      
+      const newTask = await productionTaskManagementService.updateTaskById(
+        logger,
+        task.id,
+        newData
+      );
+
       newTask.parentId = newTask.id;
 
       res.status(200).send(itemSerializer(newTask));

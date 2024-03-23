@@ -52,7 +52,7 @@ module.exports = {
         payload
       );
       node.parentId = parentId || null;
-      
+
       res.status(201).send(nodeSerializer(node.toJSON()));
     } catch (err) {
       BaseController.parseException(res, err);
@@ -82,26 +82,32 @@ module.exports = {
         logger,
         parentNode._id
       );
-      res.status(200).send(nodes.map((node) => {
-        node.parentId = parentId;
-        return nodeSerializer(node);
-      }));
+      res.status(200).send(
+        nodes.map((node) => {
+          node.parentId = parentId;
+          return nodeSerializer(node);
+        })
+      );
     } catch (err) {
       BaseController.parseException(res, err);
     }
   },
 
   /**
-   * 
+   *
    */
   async listAllNodes(req, res) {
     try {
-      const nodes = await productionTaskManagementDirectoryService.listAllNodes(logger);
+      const nodes = await productionTaskManagementDirectoryService.listAllNodes(
+        logger
+      );
       const _idToNode = _.keyBy(nodes, '_id');
-      res.status(200).send(nodes.map((node) => {
-        node.parentId = _idToNode[node.parentId]?.id || null;
-        return nodeSerializer(node);
-      }));
+      res.status(200).send(
+        nodes.map((node) => {
+          node.parentId = _idToNode[node.parentId]?.id || null;
+          return nodeSerializer(node);
+        })
+      );
     } catch (err) {
       BaseController.parseException(res, err);
     }

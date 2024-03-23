@@ -10,7 +10,6 @@ module.exports = {
    */
   async createItem(logger, item) {
     try {
-      console.log('>>>>>>>>>>>>', JSON.stringify(item, null, 2));
       return await StandardItems.create({
         ...item,
         createdAt: new Date().toISOString(),
@@ -48,7 +47,7 @@ module.exports = {
     try {
       return await StandardItems.findOne({
         where: {
-          id
+          id,
         },
         raw: true,
       });
@@ -57,7 +56,6 @@ module.exports = {
       throw err;
     }
   },
-
 
   /**
    * delete item by id
@@ -70,7 +68,7 @@ module.exports = {
         },
         {
           where: {
-            id
+            id,
           },
         }
       );

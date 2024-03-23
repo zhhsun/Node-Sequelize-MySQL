@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       parentId: {
         type: DataTypes.BIGINT,
         allowNull: true,
-        field: 'parent_id'
+        field: 'parent_id',
       },
       modelNumber: {
         type: DataTypes.STRING,

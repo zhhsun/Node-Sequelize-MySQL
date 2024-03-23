@@ -8,13 +8,13 @@ const {
   productionPlanningManagementController,
   productionTaskManagementDirectoryController,
   productionTaskManagementController,
-  standardItemController
+  standardItemController,
 } = require('../controllers');
 
 const v1ApiPrefix = '/v1/api';
 
 /* GET home page. */
-router.get(`/`, function (req, res, next) {
+router.get(`/`, (req, res, next) => {
   res.render('index', { title: 'Express' });
 });
 
@@ -70,7 +70,7 @@ router.patch(
 );
 
 /**
- * 
+ *
  */
 router.post(
   `${v1ApiPrefix}/production-task-management/tasks`,

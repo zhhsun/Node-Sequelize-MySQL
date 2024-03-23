@@ -45,7 +45,7 @@ module.exports = {
     try {
       return await ProductionTaskManagementDirectory.findAll({
         where: {
-          deleted: false
+          deleted: false,
         },
         raw: true,
       });
@@ -117,7 +117,8 @@ module.exports = {
     try {
       await ProductionTaskManagementDirectory.update(
         {
-          name, type
+          name,
+          type,
         },
         {
           where: {

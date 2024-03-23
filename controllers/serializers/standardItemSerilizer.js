@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 const itemStateDict = {
   0: 'PREPARING',
-  1: 'PURCHARSING'
+  1: 'PURCHARSING',
 };
 
 module.exports = {

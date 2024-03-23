@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       parentId: {
         type: DataTypes.BIGINT,
         allowNull: true,
-        field: 'parent_id'
+        field: 'parent_id',
       },
       name: {
         type: DataTypes.STRING,
@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       count: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        defaultValue: 0
+        defaultValue: 0,
       },
       state: {
         type: DataTypes.INTEGER,
@@ -46,17 +46,17 @@ module.exports = (sequelize, DataTypes) => {
       purchaseOrderId: {
         type: DataTypes.BIGINT,
         allowNull: true,
-        field: 'purchase_order_id'
+        field: 'purchase_order_id',
       },
       supplierId: {
         type: DataTypes.BIGINT,
         allowNull: true,
-        field: 'supplier_id'
+        field: 'supplier_id',
       },
       requiredAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        field: 'required_at'
+        field: 'required_at',
       },
       note: {
         type: DataTypes.TEXT,
