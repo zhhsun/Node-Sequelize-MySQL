@@ -98,9 +98,13 @@ module.exports = {
         throw new Exceptions.BadInputException('Parent node do not exist');
       }
 
-      const items = await standardItemService.listItems(logger, {
+      const queryConditions = {
         parentId: parentNode._id,
-      });
+      };
+      if (req.query.type) {
+        queryConditions.type = req.query.type;
+      }
+      const items = await standardItemService.listItems(logger, queryConditions);
       res.status(200).send(
         items.map((item) => {
           item.parentId = parentId;
